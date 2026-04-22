@@ -99,6 +99,14 @@ html.light .dotted-bg {
 	--dot-color: #c4c4c4;
 }
 
+
+html.light .dynamic-icon {
+  color: #222222;
+}
+
+.dynamic-icon {
+  color: white;
+}
 .dotted-bg {
 	--dot-color: #222222;
 	--dot-size: 1px;    

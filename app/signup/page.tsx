@@ -4,17 +4,15 @@ import { Logo } from "@/components/icons";
 import { signupSchema } from "@/schemas/zod/signup";
 import { showError } from "@/utils/error";
 import { Button, Input } from "@heroui/react";
+import { SubmitEvent } from "react";
 
 export default function Signup() {
-  function signupHandler(e: any) {
+  function signupHandler(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    const [emailField, passwordField, repeatedPasswordField] = e.target;
-
-    const [email, password, repeatedPassword] = [
-      emailField.value,
-      passwordField.value,
-      repeatedPasswordField.value,
-    ];
+    const formData = new FormData(e.target);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+    const repeatedPassword = formData.get("repeat-password") as string;
 
     const result = signupSchema.safeParse({
       email,
@@ -60,6 +58,7 @@ export default function Signup() {
             type="password"
             autoComplete="new-password"
             placeholder="Repeat Password"
+            name="repeat-password"
             id="repeat-password"
           />
           <Button type="submit" fullWidth className="mt-2">

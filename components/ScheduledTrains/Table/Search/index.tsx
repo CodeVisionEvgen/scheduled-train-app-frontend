@@ -1,11 +1,16 @@
 import { Label } from "@heroui/react";
-
-export const TableSearch = () => {
+type IProps = {
+  onChange: (text: string) => void;
+};
+export const TableSearch = ({ onChange }: IProps) => {
   return (
     <div>
       <Label>Search scheduled trains (From/To)</Label>
       <div className="flex items-center gap-2">
         <input
+          onInput={(e) => {
+            onChange(e.currentTarget.value);
+          }}
           aria-label="Search scheduled trains (From/To)"
           type="text"
           placeholder="Search..."

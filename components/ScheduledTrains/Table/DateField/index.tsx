@@ -1,6 +1,8 @@
 import { DateField, Label, Tooltip } from "@heroui/react";
-
-export const TableDateField = () => {
+type IProps = {
+  onChange: (text: string) => void;
+};
+export const TableDateField = ({ onChange }: IProps) => {
   return (
     <Tooltip>
       <Tooltip.Content>
@@ -11,6 +13,12 @@ export const TableDateField = () => {
         <Label>Search trains by depature date</Label>
 
         <DateField
+          onChange={(date) => {
+            const userTimeZone =
+              Intl.DateTimeFormat().resolvedOptions().timeZone;
+            const departure = date?.toDate(userTimeZone).toISOString();
+            onChange(departure || "");
+          }}
           aria-label="Search trains by depature date"
           className="w-full sm:w-[250px] h-[42px]"
           name="date"

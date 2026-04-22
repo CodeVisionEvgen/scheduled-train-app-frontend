@@ -1,16 +1,19 @@
 "use client";
 
 import { Logo } from "@/components/icons";
+import { api } from "@/lib/api";
 import { signinSchema } from "@/schemas/zod/signin";
 import { showError } from "@/utils/error";
 import { Button, Input } from "@heroui/react";
+import { AxiosError } from "axios";
+import { SubmitEvent } from "react";
 
 export default function Signin() {
-  function signupHandler(e: any) {
+  async function signupHandler(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    const [emailField, passwordField] = e.target;
-
-    const [email, password] = [emailField.value, passwordField.value];
+    const formData = new FormData(e.target);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
 
     const result = signinSchema.safeParse({
       email,
@@ -23,6 +26,20 @@ export default function Signin() {
         const message = error?.message || "Unhandled error";
         showError(message);
       }
+      return;
+    }
+    try {
+      await api.post("/auth/signin", {
+        password,
+        email,
+      });
+
+      window.location.href = "/trains";
+    } catch (error) {
+      const err = error as AxiosError;
+      const data = err?.response?.data as { message: string };
+      showError(data.message || "Unhandled error");
+      return;
     }
   }
   return (

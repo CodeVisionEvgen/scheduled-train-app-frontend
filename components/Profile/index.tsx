@@ -1,9 +1,21 @@
-import { Button } from "@heroui/react";
+import { User } from "@/hooks/useUser";
+import { Button, Skeleton } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { UserComponent } from "./UserComponent";
 
-export const Profile = () => {
+type IProps = {
+  user?: User | null;
+  isLoading: boolean;
+};
+
+export const Profile = ({ user, isLoading }: IProps) => {
   const navigator = useRouter();
-  return (
+
+  return isLoading ? (
+    <Skeleton className="w-30 h-10" />
+  ) : user ? (
+    <UserComponent user={user} />
+  ) : (
     <div className="flex gap-4">
       <Button
         onClick={() => {

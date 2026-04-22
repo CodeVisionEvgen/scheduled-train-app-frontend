@@ -1,24 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Button, Kbd, Link, TextField, InputGroup } from "@heroui/react";
+import { Link } from "@heroui/react";
 import NextLink from "next/link";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-  Logo,
-} from "@/components/icons";
+import { Logo } from "@/components/icons";
 import { Profile } from "./Profile";
+import { useUser } from "@/hooks/useUser";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, loading } = useUser();
 
   return (
     <nav className="sticky top-0 z-40 w-full border-b border-separator bg-background/70 backdrop-blur-lg">
@@ -32,19 +27,22 @@ export const Navbar = () => {
             <p className="font-bold text-inherit">Schedule Train</p>
           </NextLink>
           <ul className="hidden sm:flex gap-4 ml-2">
-            {siteConfig.navItems.map((item) => (
-              <li key={item.href}>
-                <NextLink
-                  className={clsx(
-                    "text-foreground hover:text-accent transition-colors",
-                    "data-[active=true]:text-accent data-[active=true]:font-medium",
-                  )}
-                  href={item.href}
-                >
-                  {item.label}
-                </NextLink>
-              </li>
-            ))}
+            {siteConfig.navItems.map((item) => {
+              if (!user && item.href === "/trains") return null;
+              return (
+                <li key={item.href}>
+                  <NextLink
+                    className={clsx(
+                      "text-foreground hover:text-accent transition-colors",
+                      "data-[active=true]:text-accent data-[active=true]:font-medium",
+                    )}
+                    href={item.href}
+                  >
+                    {item.label}
+                  </NextLink>
+                </li>
+              );
+            })}
           </ul>
         </div>
 
@@ -83,23 +81,26 @@ export const Navbar = () => {
 
         <div className="hidden sm:flex gap-4 ml-2">
           <ThemeSwitch />
-          <Profile />
+          <Profile user={user} isLoading={loading} />
         </div>
       </header>
 
       {isMenuOpen && (
         <div className="border-t border-separator sm:hidden">
           <ul className="flex flex-col gap-2 px-4 pb-4">
-            {siteConfig.navMenuItems.map((item, index) => (
-              <li key={`${item.label}-${index}`}>
-                <Link
-                  className={clsx("block py-2 text-lg no-underline")}
-                  href={item.href}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            {siteConfig.navMenuItems.map((item, index) => {
+              if (!user && item.href === "/trains") return null;
+              return (
+                <li key={`${item.label}-${index}`}>
+                  <Link
+                    className={clsx("block py-2 text-lg no-underline")}
+                    href={item.href}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

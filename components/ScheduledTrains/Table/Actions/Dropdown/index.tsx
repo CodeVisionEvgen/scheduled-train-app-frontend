@@ -1,28 +1,49 @@
 import { VerticalDots } from "@/components/icons";
-import { ModalConfirmDanger } from "@/components/Modals/ConfirmDanger";
-import { ScheduledTrain } from "@/types";
-import { Button, Dropdown, Label } from "@heroui/react";
+import { IScheduledTrain } from "@/types";
+import { Button, Dropdown, Key, Label } from "@heroui/react";
 
-type IProps = {
-  item: ScheduledTrain;
+type IOnActionProps = {
+  item: IScheduledTrain;
+  key: Key;
 };
 
-export const TableActionsDropdown = ({ item }: IProps) => {
+type IProps = {
+  item: IScheduledTrain;
+  onAction?: (data: IOnActionProps) => void;
+  hideOpenElement?: boolean;
+  isMock?: boolean;
+};
+
+export const TableActionsDropdown = ({
+  item,
+  onAction,
+  isMock,
+  hideOpenElement,
+}: IProps) => {
   return (
     <Dropdown>
-      <Button aria-label="Menu" variant="secondary">
-        <VerticalDots size={16} color="white" />
+      <Button isDisabled={isMock} aria-label="Menu" variant="secondary">
+        <VerticalDots size={16} />
       </Button>
       <Dropdown.Popover>
-        <Dropdown.Menu onAction={(key) => console.log(`Selected: ${key}`)}>
-          <Dropdown.Item id="open" textValue="Open">
-            <Label>Open</Label>
+        <Dropdown.Menu
+          onAction={(key) => {
+            onAction?.({ key, item });
+          }}
+        >
+          {!hideOpenElement && (
+            <Dropdown.Item id="open" textValue="Open">
+              <Label>Open</Label>
+            </Dropdown.Item>
+          )}
+          <Dropdown.Item id="edit" textValue="Edit">
+            <Label>Edit</Label>
+          </Dropdown.Item>
+          <Dropdown.Item id="fullUpdate" textValue="Full Update">
+            <Label>Replace Data</Label>
           </Dropdown.Item>
           <Dropdown.Item id="delete" textValue="Delete" variant="danger">
-            <ModalConfirmDanger
-              Trigger={<Label>Delete</Label>}
-              message="test"
-            />
+            <Label>Delete</Label>
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown.Popover>

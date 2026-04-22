@@ -1,6 +1,10 @@
-import { Label, Select, ListBox, Description, Header } from "@heroui/react";
+import { Label, Select, ListBox } from "@heroui/react";
 
-export const TableSort = () => {
+type IProps = {
+  onChange: (text: string) => void;
+};
+
+export const TableSort = ({ onChange }: IProps) => {
   return (
     <Select className="w-[256px] h-[42px]" placeholder="Select one">
       <Label>Sort trains</Label>
@@ -10,11 +14,19 @@ export const TableSort = () => {
       </Select.Trigger>
       <Select.Popover>
         <ListBox>
-          <ListBox.Item id="Departure-DESC" textValue="Departure-DESC">
+          <ListBox.Item
+            onClick={() => onChange("DESC")}
+            id="Departure-DESC"
+            textValue="Departure-DESC"
+          >
             Departure date: DESC
             <ListBox.ItemIndicator />
           </ListBox.Item>
-          <ListBox.Item id="Departure-ASC" textValue="Departure-ASC">
+          <ListBox.Item
+            onClick={() => onChange("ASC")}
+            id="Departure-ASC"
+            textValue="Departure-ASC"
+          >
             Departure date: ASC
             <ListBox.ItemIndicator />
           </ListBox.Item>

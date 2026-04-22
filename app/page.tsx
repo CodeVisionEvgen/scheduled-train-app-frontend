@@ -6,12 +6,9 @@ import { smallScheduledTrains } from "@/mocks";
 import { List } from "@/components/List";
 import { Divider } from "@/components/Divider";
 import { useState } from "react";
-import { ScheduledTrain } from "@/types";
+import { IScheduledTrain } from "@/types";
 
 export default function Home() {
-  const [scheduledTrains, setScheduledTrains] = useState<ScheduledTrain[]>([]);
-  const useMockdata = scheduledTrains.length === 0;
-
   return (
     <>
       <section className="flex  flex-col items-center justify-center gap-4 py-8 md:py-10 ">
@@ -54,13 +51,9 @@ export default function Home() {
 
       <section className="mb-10">
         <h3 className="text-2xl font-bold mb-5">
-          Latest Train Scheduled {useMockdata && "(Example)"}
+          Latest Train Scheduled (Example)
         </h3>
-        <ScheduledTrainsTable
-          isMock={useMockdata}
-          isLimited
-          data={smallScheduledTrains}
-        />
+        <ScheduledTrainsTable isMock={true} />
       </section>
     </>
   );

@@ -4,11 +4,13 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
 
-export type ScheduledTrain = {
-  id: string;
+export type IScheduledTrain = {
+  id: number;
   number: string;
   from: string;
   to: string;
   departure: string;
   arrival: string;
+  createdAt: string;
+  updatedAt: string;
 };
