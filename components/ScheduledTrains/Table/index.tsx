@@ -209,7 +209,7 @@ export const ScheduledTrainsTable = ({ isMock }: IProps) => {
         {!isMock && (
           <Pagination className="w-full mt-4">
             <Pagination.Summary>
-              {offset} to {offset + limit} of {count} invoices
+              {offset} to {offset + limit} of {count} scheduled trains
             </Pagination.Summary>
             <Pagination.Content>
               <Pagination.Item>
