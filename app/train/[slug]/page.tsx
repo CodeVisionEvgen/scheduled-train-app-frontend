@@ -1,6 +1,5 @@
 "use client";
 import { useParams, useRouter } from "next/navigation";
-import { largeScheduledTrains } from "@/mocks";
 import { Surface } from "@heroui/react";
 import { prettyDate } from "@/utils/date";
 import { TableActionsDropdown } from "@/components/ScheduledTrains/Table/Actions/Dropdown";
