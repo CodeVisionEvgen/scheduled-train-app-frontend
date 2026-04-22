@@ -101,6 +101,36 @@ export const Navbar = () => {
                 </li>
               );
             })}
+            {user && (
+              <li key={`profile`}>
+                <Link
+                  className={clsx("block py-2 text-lg no-underline")}
+                  href={"/profile"}
+                >
+                  Profile
+                </Link>
+              </li>
+            )}
+            {!user && (
+              <>
+                <li key={`signin`}>
+                  <Link
+                    className={clsx("block py-2 text-lg no-underline")}
+                    href={"/signin"}
+                  >
+                    Sign in
+                  </Link>
+                </li>
+                <li key={`signup`}>
+                  <Link
+                    className={clsx("block py-2 text-lg no-underline")}
+                    href={"/signup"}
+                  >
+                    Sign up
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       )}
