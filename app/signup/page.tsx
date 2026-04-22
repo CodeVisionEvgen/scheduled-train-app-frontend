@@ -28,6 +28,7 @@ export default function Signup() {
         const message = error?.message || "Unhandled error";
         showError(message);
       }
+      return;
     }
     try {
       await api.post("/auth/signup", {
