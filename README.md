@@ -1,9 +1,6 @@
 # Next.js & HeroUI Template
 
- _._     _,-'""`-._
-(,-.`._,'(       |\`-/|
-    `-.-' \ )-`( , o o)
-          `-    \`_`"'-
+₍˄·͈༝·͈˄₎◞
 
 This is a template for creating applications using Next.js 15 (app directory) and HeroUI (v3).
 
